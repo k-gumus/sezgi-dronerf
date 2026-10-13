@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sezgi</title>
+<meta name="description" content="Sezgi is building a passive 2.4 GHz sensor that tells prisons, data centers, ports and industrial sites in Türkiye when a drone link is overhead.">
+<meta name="theme-color" content="#0B1524">
+<meta property="og:title" content="Sezgi">
+<meta property="og:description" content="Passive RF sensing that tells prisons, data centers and ports when a drone is overhead.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sezgidetectionsystems.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%230B1524'/%3E%3Cg fill='%233A4A63'%3E%3Crect x='47.5' y='259' width='25' height='36' rx='12.5'/%3E%3Crect x='82.5' y='243' width='25' height='52' rx='12.5'/%3E%3Crect x='117.5' y='263' width='25' height='32' rx='12.5'/%3E%3Crect x='152.5' y='235' width='25' height='60' rx='12.5'/%3E%3Crect x='292.5' y='251' width='25' height='44' rx='12.5'/%3E%3Crect x='327.5' y='267' width='25' height='28' rx='12.5'/%3E%3C/g%3E%3Cg fill='%23E8652B'%3E%3Crect x='187.5' y='151' width='25' height='144' rx='12.5'/%3E%3Crect x='222.5' y='105' width='25' height='190' rx='12.5'/%3E%3Crect x='257.5' y='167' width='25' height='128' rx='12.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Plan: night-navy hero whose floor is a live sensor view; calm editorial rows below (narrow title column, wide reading column); dark again for the measured results. */
+:root{
+  --night:#0B1524; --night2:#12233B; --ink:#0F1B2D; --paper:#EDF0F3; --white:#F7F9FB;
+  --slate:#3A4A63; --mist:#8FA1B6; --muted:#4B5666; --line:#CBD3DD; --line-d:#26364D;
+  --signal:#E8652B; --signal-ink:#B4461A; --steady:#6C9BD1; --on-dark:#E7ECF2; --on-dark-muted:#9BA8B9;
+  --f-display:'Space Grotesk','Helvetica Neue',Arial,sans-serif;
+  --f-body:'Source Serif 4',Georgia,'Times New Roman',serif;
+}
+:root[data-lang="tr"] .l-en{display:none!important}
+:root:not([data-lang="tr"]) .l-tr{display:none!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1.125rem;line-height:1.65;-webkit-font-smoothing:antialiased;font-optical-sizing:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+p{margin:0}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(20px,4.5vw,56px)}
+.ui{font-family:var(--f-display)}
+
+/* header + hero */
+.top{background:var(--night);color:var(--on-dark);position:relative;overflow:hidden}
+.bar{display:flex;align-items:center;gap:28px;padding-block:22px}
+.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--f-display);font-weight:700;font-size:1.35rem;letter-spacing:.14em;color:var(--on-dark)}
+.logo svg{height:30px;width:auto;display:block}
+.bar nav{margin-left:auto;display:flex;gap:28px;font-family:var(--f-display);font-size:.95rem}
+.bar nav a{text-decoration:none;color:var(--on-dark-muted)}
+.bar nav a:hover{color:#fff}
+.lang{font-family:var(--f-display);font-weight:600;font-size:.85rem;color:var(--on-dark);background:transparent;border:1px solid var(--line-d);border-radius:2px;padding:6px 12px;cursor:pointer}
+.lang:hover{border-color:var(--mist)}
+@media (max-width:760px){.bar nav{display:none}.lang{margin-left:auto}}
+.hero{padding-block:clamp(20px,4vh,56px) clamp(28px,5vh,52px)}
+.hero h1{font-weight:500;font-size:clamp(2.4rem,5.2vw,4.5rem);line-height:1;letter-spacing:-.035em;max-width:16em;color:#fff}
+.hero .lede{margin-top:clamp(18px,2.4vw,28px);max-width:34em;font-size:clamp(1.1rem,1.6vw,1.3rem);color:var(--on-dark-muted)}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;margin-top:clamp(20px,2.6vw,32px);font-family:var(--f-display)}
+.btn{display:inline-block;background:var(--signal);color:var(--night);font-weight:600;font-size:1rem;text-decoration:none;padding:13px 22px;border-radius:2px}
+.btn:hover{background:#F27A44}
+.textlink{color:var(--on-dark);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--slate);font-size:1rem}
+.textlink:hover{text-decoration-color:var(--signal)}
+
+.view{border-top:1px solid var(--line-d)}
+.readout{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;padding-block:14px;font-family:var(--f-display);font-size:.95rem}
+.status{display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:500}
+.status i{width:10px;height:10px;border-radius:50%;background:var(--mist);transition:background .3s}
+.status[data-s="steady"] i{background:var(--steady)}
+.status[data-s="hop"] i{background:var(--signal);box-shadow:0 0 0 5px rgba(232,101,43,.25)}
+.peak{color:var(--on-dark-muted);font-variant-numeric:tabular-nums}
+.peak b{color:var(--on-dark);font-weight:600}
+.stage{position:relative}
+#wf{display:block;width:100%;height:clamp(150px,26vh,260px);background:var(--night)}
+.tag{position:absolute;top:8px;background:var(--night);padding:2px 8px;border-radius:2px;font-family:var(--f-display);font-size:.8rem;color:var(--on-dark-muted);pointer-events:none;white-space:nowrap}
+.axis{display:flex;justify-content:space-between;gap:16px;padding:10px clamp(12px,1.5vw,20px) 14px;font-family:var(--f-display);font-size:.8rem;color:var(--on-dark-muted);font-variant-numeric:tabular-nums}
+.axis span{white-space:nowrap}.axis em{font-style:normal;color:var(--mist)}
+@media (max-width:640px){.axis{flex-wrap:wrap}.axis em{order:3;flex-basis:100%}}
+
+/* rows */
+.rows>section{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
+.rows>section:first-child{border-top:0}
+.row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,80px);align-items:start}
+.row>.title{position:sticky;top:28px}
+@media (max-width:860px){.row{grid-template-columns:minmax(0,1fr)}.row>.title{position:static}}
+h2{font-weight:500;font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.05;letter-spacing:-.025em}
+h3{font-weight:600;font-size:1.2rem;line-height:1.25;letter-spacing:-.005em}
+.prose{max-width:34em}
+.prose p+p{margin-top:1em}
+.muted{color:var(--muted)}
+.fine{font-family:var(--f-display);font-size:.9rem;color:var(--muted);line-height:1.5}
+.fine a{color:var(--muted)}
+
+/* problem */
+.facts{margin:0;padding:0;border-top:1px solid var(--ink)}
+.facts div{display:grid;grid-template-columns:minmax(0,10.5rem) minmax(0,1fr);gap:8px 28px;padding-block:22px;border-bottom:1px solid var(--line);align-items:baseline}
+.facts dt{font-family:var(--f-display);font-weight:500;font-size:clamp(2.2rem,4vw,3.1rem);letter-spacing:-.03em;line-height:1;color:var(--signal-ink);font-variant-numeric:tabular-nums}
+.facts dd{margin:0;max-width:30em}
+@media (max-width:560px){.facts div{grid-template-columns:minmax(0,1fr)}}
+.pull{margin-top:clamp(32px,4vw,52px);font-size:clamp(1.3rem,2.2vw,1.65rem);line-height:1.4;max-width:24em}
+.row .fine{margin-top:26px}
+
+/* how */
+.steps{list-style:none;margin:clamp(40px,5vw,64px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px);position:relative}
+.steps li{position:relative;padding-top:30px;border-top:1px solid var(--ink);min-width:0}
+.steps li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--signal)}
+.steps svg{display:block;width:100%;height:auto;margin-bottom:20px}
+.steps h3{margin-bottom:8px}
+.steps p{font-size:1rem;line-height:1.55;color:var(--muted)}
+.n{font-family:var(--f-display);font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* results (dark) */
+.dark{background:var(--night);color:var(--on-dark)}
+.rows>section.dark{border-top:0}
+.dark h2{color:#fff}
+.dark .muted,.dark .fine{color:var(--on-dark-muted)}
+.figs{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin-top:clamp(40px,5vw,64px)}
+figure{margin:0;border-top:1px solid var(--line-d);padding-top:18px;min-width:0}
+figure h3{margin-bottom:12px;font-size:1.05rem}
+figcaption{margin-top:12px;font-family:var(--f-display);font-size:.9rem;line-height:1.5;color:var(--on-dark-muted);max-width:34em}
+.scroll{overflow-x:auto}
+.scroll svg{display:block;width:100%;min-width:420px;height:auto}
+@media (max-width:900px){.figs{grid-template-columns:minmax(0,1fr)}}
+.dark svg .t{font-family:var(--f-display);font-size:13px;fill:var(--on-dark-muted)}
+.dark svg .tl{font-family:var(--f-display);font-size:14px;fill:var(--on-dark-muted)}
+.dark svg .lab-hop{font-family:var(--f-display);font-size:14px;font-weight:600;fill:var(--signal)}
+.dark svg .lab-sig{font-family:var(--f-display);font-size:14px;font-weight:600;fill:var(--steady)}
+.dark svg .lab-ink{font-family:var(--f-display);font-size:14px;font-weight:600;fill:#fff}
+.dark svg .grid{stroke:var(--line-d);stroke-width:1}
+.dark svg .frame{fill:none;stroke:var(--line-d);stroke-width:1.5}
+.dark svg .base{stroke:var(--mist);stroke-width:1.5}
+.dark svg .thr{stroke:#fff;stroke-width:1.5;stroke-dasharray:6 5;opacity:.8}
+.dark svg .diag{stroke:var(--mist);stroke-width:1.5;stroke-dasharray:6 5;opacity:.6}
+.dark svg .bar-hop{fill:var(--signal)}
+.dark svg .bar-sig{fill:var(--steady)}
+.dark svg .area{fill:var(--signal);opacity:.16}
+.dark svg .curve{fill:none;stroke:var(--signal);stroke-width:3.5;stroke-linejoin:round}
+.dark svg .dot{fill:var(--night);stroke:#fff;stroke-width:2.5}
+.numbers{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:end;margin-top:clamp(40px,5vw,64px)}
+.auc .big{display:block;font-family:var(--f-display);font-weight:500;font-size:clamp(3.4rem,8vw,6rem);line-height:.95;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.auc span.s{display:block;margin-top:10px;font-family:var(--f-display);font-size:.95rem;color:var(--on-dark-muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:340px;font-family:var(--f-display);font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:12px 14px 12px 0;border-bottom:1px solid var(--line-d)}
+th{font-weight:500;font-size:.9rem;color:var(--on-dark-muted)}
+td{font-size:1.3rem;font-weight:500;color:#fff}
+@media (max-width:700px){.numbers{grid-template-columns:minmax(0,1fr)}}
+.limits{margin-top:clamp(56px,7vw,96px);border-top:1px solid var(--signal);padding-top:26px}
+.limits h3{font-size:1.5rem;font-weight:500;letter-spacing:-.015em;margin-bottom:26px}
+.limits dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px clamp(24px,5vw,72px);margin:0}
+.limits dt{font-family:var(--f-display);font-weight:600;color:#fff;margin-bottom:4px}
+.limits dd{margin:0;color:var(--on-dark-muted);font-size:1.02rem;line-height:1.55}
+@media (max-width:700px){.limits dl{grid-template-columns:minmax(0,1fr)}}
+
+/* for / next */
+.sites{font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;max-width:22em;margin-top:28px}
+.plan{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.plan li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;padding-block:20px;border-bottom:1px solid var(--line)}
+.plan .n{padding-top:2px}
+.plan span:last-child{max-width:34em}
+
+/* contact + footer */
+.contact h2{max-width:14em}
+.contact .prose{margin-top:20px;color:var(--on-dark-muted)}
+.reach{display:flex;flex-direction:column;gap:18px;font-family:var(--f-display)}
+.mail{font-size:clamp(1.3rem,2.8vw,2.1rem);font-weight:500;letter-spacing:-.02em;color:#fff;text-decoration:underline;text-decoration-color:var(--signal);text-underline-offset:8px;text-decoration-thickness:2px;overflow-wrap:anywhere}
+.mail:hover{color:var(--signal)}
+.reach .row2{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.copy{font-family:var(--f-display);font-weight:600;font-size:.9rem;background:transparent;color:var(--on-dark);border:1px solid var(--line-d);border-radius:2px;padding:9px 14px;cursor:pointer}
+.copy:hover{border-color:var(--mist)}
+.reach a.in{color:var(--on-dark)}
+.founder{font-size:.95rem;color:var(--on-dark-muted);max-width:30em;line-height:1.55}
+footer{background:var(--night);color:var(--on-dark-muted);border-top:1px solid var(--line-d);padding-block:28px 40px;font-family:var(--f-display);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;justify-content:space-between}
+footer .logo{font-size:1rem}
+footer .logo svg{height:20px}
+</style>
+<script>
+(function(){
+  var l='en';
+  try{var s=localStorage.getItem('sezgi-lang'); if(s==='tr'||s==='en'){l=s}else if((navigator.language||'').toLowerCase().indexOf('tr')===0){l='tr'}}catch(e){if((navigator.language||'').toLowerCase().indexOf('tr')===0){l='tr'}}
+  document.documentElement.setAttribute('data-lang',l);
+  document.documentElement.lang=l;
+})();
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="47 105 306 190">
+      <g fill="#5B6E8C"><rect x="47.5" y="259" width="25" height="36" rx="12.5"/><rect x="82.5" y="243" width="25" height="52" rx="12.5"/><rect x="117.5" y="263" width="25" height="32" rx="12.5"/><rect x="152.5" y="235" width="25" height="60" rx="12.5"/><rect x="292.5" y="251" width="25" height="44" rx="12.5"/><rect x="327.5" y="267" width="25" height="28" rx="12.5"/></g>
+      <g fill="#E8652B"><rect x="187.5" y="151" width="25" height="144" rx="12.5"/><rect x="222.5" y="105" width="25" height="190" rx="12.5"/><rect x="257.5" y="167" width="25" height="128" rx="12.5"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#top" aria-label="Sezgi"><svg viewBox="0 0 306 190" aria-hidden="true"><use href="#mark" width="306" height="190"/></svg>SEZGİ</a>
+      <nav aria-label="Main">
+        <a href="#problem"><span class="l-en">Problem</span><span class="l-tr">Sorun</span></a>
+        <a href="#how"><span class="l-en">How it works</span><span class="l-tr">Nasıl çalışır</span></a>
+        <a href="#results"><span class="l-en">Results</span><span class="l-tr">Sonuçlar</span></a>
+        <a href="#contact"><span class="l-en">Contact</span><span class="l-tr">İletişim</span></a>
+      </nav>
+      <button class="lang" id="lang" type="button"><span class="l-en" aria-label="Türkçe">TR</span><span class="l-tr" aria-label="English">EN</span></button>
+    </div>
+    <div class="hero">
+      <h1><span class="l-en">Every fenced site should know when something flies over it.</span><span class="l-tr">Çitle çevrili her tesis, üzerinden bir şey uçtuğunu bilmeli.</span></h1>
+      <p class="lede"><span class="l-en">Sezgi is building a passive sensor that listens to the 2.4 GHz band for drone links and alerts the people who guard prisons, data centers, ports and industrial sites in Türkiye.</span><span class="l-tr">Sezgi, 2,4 GHz bandında drone bağlantılarını dinleyen ve cezaevi, veri merkezi, liman ve sanayi tesislerinin güvenlik ekiplerini uyaran pasif bir sensör geliştiriyor.</span></p>
+      <div class="cta">
+        <a class="btn" href="#contact"><span class="l-en">Talk to us</span><span class="l-tr">Bizimle konuşun</span></a>
+        <a class="textlink" href="#results"><span class="l-en">See the first results</span><span class="l-tr">İlk sonuçları görün</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="view">
+    <div class="wrap">
+      <div class="readout" aria-live="off">
+        <span class="status" id="status" data-s="quiet"><i aria-hidden="true"></i><span id="status-t">Quiet</span></span>
+        <span class="peak"><span class="l-en">Peak channel</span><span class="l-tr">Tepe kanal</span> <b id="peak">0%</b></span>
+      </div>
+    </div>
+    <div class="stage" role="img" aria-label="Simulated waterfall of the 2.4 GHz band. Wi-Fi stays in place and is subtracted. A steady carrier fills one channel and is ignored. A hopping link spreads across channels and is flagged.">
+      <canvas id="wf"></canvas>
+      <span class="tag" id="tag-wifi" style="left:8px"><span class="l-en">Wi-Fi, learned and subtracted</span><span class="l-tr">Wi-Fi, öğrenildi ve çıkarıldı</span></span>
+    </div>
+    <div>
+      <div class="axis"><span>2400 MHz</span><em><span class="l-en">Simulation of what the sensor sees, not live data. Time runs downward.</span><span class="l-tr">Sensörün gördüğünün simülasyonu, canlı veri değildir. Zaman aşağı akar.</span></em><span>2483 MHz</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="rows">
+  <section id="problem">
+    <div class="wrap row">
+      <div class="title"><h2><span class="l-en">No-fly zones now rely on the pilot</span><span class="l-tr">Uçuşa yasak bölgeler artık pilotun insafına kaldı</span></h2></div>
+      <div>
+        <dl class="facts">
+          <div><dt><span class="l-en">Off</span><span class="l-tr">Kalktı</span></dt><dd><span class="l-en">DJI's hard no-fly locks, replaced worldwide by in-app warnings between November 2025 and early 2026.</span><span class="l-tr">DJI'ın yazılımsal uçuş yasağı kilitleri, Kasım 2025 ile 2026 başı arasında dünya genelinde uygulama içi uyarıya dönüştü.</span></dd></div>
+          <div><dt>273</dt><dd><span class="l-en">drone contraband incidents at South Carolina prisons in 2025 alone.</span><span class="l-tr">2025'te yalnızca Güney Karolina cezaevlerinde yaşanan drone ile kaçakçılık vakası.</span></dd></div>
+          <div><dt>10×</dt><dd><span class="l-en">rise in drone drug deliveries to prisons in England and Wales over four years.</span><span class="l-tr">İngiltere ve Galler cezaevlerine drone ile uyuşturucu teslimatında dört yıldaki artış.</span></dd></div>
+        </dl>
+        <p class="pull"><span class="l-en">What we are testing now: most sites below military grade in Türkiye have no way to sense their own airspace.</span><span class="l-tr">Şu an test ettiğimiz şey: Türkiye'de askeri sınıfın altındaki tesislerin çoğunun kendi hava sahasını algılayacak hiçbir aracı yok.</span></p>
+        <p class="fine"><span class="l-en">Sources:</span><span class="l-tr">Kaynaklar:</span>
+          <a href="https://www.dji.com/media-center/announcements/dji-expands-geo-system-update-to-remaining" target="_blank" rel="noopener">DJI, Nov 2025</a>,
+          <a href="https://www.trthaber.com/haber/dunya/drone-teknolojisi-abd-hapishanelerini-zora-soktu-943992.html" target="_blank" rel="noopener">CNN via TRT Haber, May 2026</a>,
+          <a href="https://tr.euronews.com/2025/01/01/ingiltere-ve-gallerde-cezaevlerine-uyusturucu-tasiyan-drone-vakalari-dort-yilda-10-kat-art" target="_blank" rel="noopener">Euronews, Jan 2025</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="row">
+        <div class="title"><h2><span class="l-en">One node, four steps, once a second</span><span class="l-tr">Tek düğüm, dört adım, saniyede bir</span></h2></div>
+        <div class="prose"><p><span class="l-en">Each node is passive: it transmits nothing. It is designed to keep its data on the site it protects.</span><span class="l-tr">Her düğüm pasiftir, hiçbir yayın yapmaz. Verisini koruduğu tesiste tutacak şekilde tasarlanıyor.</span></p></div>
+      </div>
+      <ol class="steps">
+        <li><svg viewBox="0 0 240 96" role="img" aria-label="A row of 84 channel readings with a marker sweeping across" xmlns="http://www.w3.org/2000/svg"><rect x="1.0" y="77.1" width="5.0" height="18.9" fill="#3A4A63"/><rect x="9.0" y="74.7" width="5.0" height="21.3" fill="#3A4A63"/><rect x="17.0" y="66.9" width="5.0" height="29.1" fill="#3A4A63"/><rect x="25.0" y="76.8" width="5.0" height="19.2" fill="#3A4A63"/><rect x="33.0" y="75.9" width="5.0" height="20.1" fill="#3A4A63"/><rect x="41.0" y="74.2" width="5.0" height="21.8" fill="#3A4A63"/><rect x="49.0" y="82.8" width="5.0" height="13.2" fill="#3A4A63"/><rect x="57.0" y="75.8" width="5.0" height="20.2" fill="#3A4A63"/><rect x="65.0" y="73.2" width="5.0" height="22.8" fill="#3A4A63"/><rect x="73.0" y="69.7" width="5.0" height="26.3" fill="#3A4A63"/><rect x="81.0" y="84.8" width="5.0" height="11.2" fill="#3A4A63"/><rect x="89.0" y="80.3" width="5.0" height="15.7" fill="#3A4A63"/><rect x="97.0" y="84.8" width="5.0" height="11.2" fill="#3A4A63"/><rect x="105.0" y="69.4" width="5.0" height="26.6" fill="#3A4A63"/><rect x="113.0" y="71.9" width="5.0" height="24.1" fill="#3A4A63"/><rect x="121.0" y="85.9" width="5.0" height="10.1" fill="#3A4A63"/><rect x="129.0" y="65.7" width="5.0" height="30.3" fill="#3A4A63"/><rect x="137.0" y="57.6" width="5.0" height="38.4" fill="#E8652B"/><rect x="145.0" y="72.7" width="5.0" height="23.3" fill="#3A4A63"/><rect x="153.0" y="73.5" width="5.0" height="22.5" fill="#3A4A63"/><rect x="161.0" y="83.4" width="5.0" height="12.6" fill="#3A4A63"/><rect x="169.0" y="86.5" width="5.0" height="9.5" fill="#3A4A63"/><rect x="177.0" y="75.4" width="5.0" height="20.6" fill="#3A4A63"/><rect x="185.0" y="85.5" width="5.0" height="10.5" fill="#3A4A63"/><rect x="193.0" y="82.7" width="5.0" height="13.3" fill="#3A4A63"/><rect x="201.0" y="81.6" width="5.0" height="14.4" fill="#3A4A63"/><rect x="209.0" y="86.1" width="5.0" height="9.9" fill="#3A4A63"/><rect x="217.0" y="76.8" width="5.0" height="19.2" fill="#3A4A63"/><rect x="225.0" y="77.3" width="5.0" height="18.7" fill="#3A4A63"/><rect x="233.0" y="68.7" width="5.0" height="27.3" fill="#3A4A63"/><rect x="136" y="0" width="2" height="96" fill="#E8652B"/></svg><h3><span class="l-en">Sweep</span><span class="l-tr">Tarama</span></h3><p><span class="l-en">84 channels from 2400 to 2483 MHz, one full sweep every 20.1 ms.</span><span class="l-tr">2400–2483 MHz arasında 84 kanal, her 20,1 ms'de bir tam tarama.</span></p></li>
+        <li><svg viewBox="0 0 240 96" role="img" aria-label="Channel bars with a threshold line; only two bars rise above it" xmlns="http://www.w3.org/2000/svg"><rect x="1.0" y="75.6" width="5.0" height="20.4" fill="#3A4A63"/><rect x="9.0" y="73.0" width="5.0" height="23.0" fill="#3A4A63"/><rect x="17.0" y="76.0" width="5.0" height="20.0" fill="#3A4A63"/><rect x="25.0" y="72.5" width="5.0" height="23.5" fill="#3A4A63"/><rect x="33.0" y="76.9" width="5.0" height="19.1" fill="#3A4A63"/><rect x="41.0" y="80.8" width="5.0" height="15.2" fill="#3A4A63"/><rect x="49.0" y="65.3" width="5.0" height="30.7" fill="#3A4A63"/><rect x="57.0" y="65.4" width="5.0" height="30.6" fill="#3A4A63"/><rect x="65.0" y="68.7" width="5.0" height="27.3" fill="#3A4A63"/><rect x="73.0" y="71.6" width="5.0" height="24.4" fill="#3A4A63"/><rect x="81.0" y="80.0" width="5.0" height="16.0" fill="#3A4A63"/><rect x="89.0" y="81.8" width="5.0" height="14.2" fill="#3A4A63"/><rect x="97.0" y="80.6" width="5.0" height="15.4" fill="#3A4A63"/><rect x="105.0" y="85.3" width="5.0" height="10.7" fill="#3A4A63"/><rect x="113.0" y="70.3" width="5.0" height="25.7" fill="#3A4A63"/><rect x="121.0" y="78.2" width="5.0" height="17.8" fill="#3A4A63"/><rect x="129.0" y="68.6" width="5.0" height="27.4" fill="#3A4A63"/><rect x="137.0" y="78.5" width="5.0" height="17.5" fill="#3A4A63"/><rect x="145.0" y="66.2" width="5.0" height="29.8" fill="#3A4A63"/><rect x="153.0" y="34.6" width="5.0" height="61.4" fill="#E8652B"/><rect x="161.0" y="34.6" width="5.0" height="61.4" fill="#E8652B"/><rect x="169.0" y="82.3" width="5.0" height="13.7" fill="#3A4A63"/><rect x="177.0" y="67.2" width="5.0" height="28.8" fill="#3A4A63"/><rect x="185.0" y="76.7" width="5.0" height="19.3" fill="#3A4A63"/><rect x="193.0" y="65.7" width="5.0" height="30.3" fill="#3A4A63"/><rect x="201.0" y="78.2" width="5.0" height="17.8" fill="#3A4A63"/><rect x="209.0" y="85.2" width="5.0" height="10.8" fill="#3A4A63"/><rect x="217.0" y="73.2" width="5.0" height="22.8" fill="#3A4A63"/><rect x="225.0" y="70.0" width="5.0" height="26.0" fill="#3A4A63"/><rect x="233.0" y="81.0" width="5.0" height="15.0" fill="#3A4A63"/><line x1="0" y1="40" x2="240" y2="40" stroke="#0F1B2D" stroke-dasharray="5 4" stroke-width="1.5"/></svg><h3><span class="l-en">Detect</span><span class="l-tr">Algılama</span></h3><p><span class="l-en">On each channel: is the received power above −64 dBm? Fifty sweeps make one frame.</span><span class="l-tr">Her kanalda: alınan güç −64 dBm'in üstünde mi? Elli tarama bir çerçeve eder.</span></p></li>
+        <li><svg viewBox="0 0 240 96" role="img" aria-label="Dashed outline of steady Wi-Fi channels removed; one new signal remains" xmlns="http://www.w3.org/2000/svg"><rect x="1.0" y="45.8" width="5.0" height="50.2" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="9.0" y="42.6" width="5.0" height="53.4" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="17.0" y="46.5" width="5.0" height="49.5" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="25.0" y="47.9" width="5.0" height="48.1" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="33.0" y="47.0" width="5.0" height="49.0" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="41.0" y="44.9" width="5.0" height="51.1" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="49.0" y="42.8" width="5.0" height="53.2" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="57.0" y="43.4" width="5.0" height="52.6" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="65.0" y="45.2" width="5.0" height="50.8" fill="none" stroke="#8FA1B6" stroke-dasharray="3 3" stroke-width="1.2"/><rect x="73.0" y="82.2" width="5.0" height="13.8" fill="#3A4A63"/><rect x="81.0" y="81.0" width="5.0" height="15.0" fill="#3A4A63"/><rect x="89.0" y="65.9" width="5.0" height="30.1" fill="#3A4A63"/><rect x="97.0" y="69.5" width="5.0" height="26.5" fill="#3A4A63"/><rect x="105.0" y="80.2" width="5.0" height="15.8" fill="#3A4A63"/><rect x="113.0" y="67.8" width="5.0" height="28.2" fill="#3A4A63"/><rect x="121.0" y="82.3" width="5.0" height="13.7" fill="#3A4A63"/><rect x="129.0" y="78.3" width="5.0" height="17.7" fill="#3A4A63"/><rect x="137.0" y="68.4" width="5.0" height="27.6" fill="#3A4A63"/><rect x="145.0" y="73.0" width="5.0" height="23.0" fill="#3A4A63"/><rect x="153.0" y="84.6" width="5.0" height="11.4" fill="#3A4A63"/><rect x="161.0" y="65.5" width="5.0" height="30.5" fill="#3A4A63"/><rect x="169.0" y="30.7" width="5.0" height="65.3" fill="#E8652B"/><rect x="177.0" y="81.2" width="5.0" height="14.8" fill="#3A4A63"/><rect x="185.0" y="70.2" width="5.0" height="25.8" fill="#3A4A63"/><rect x="193.0" y="79.7" width="5.0" height="16.3" fill="#3A4A63"/><rect x="201.0" y="80.4" width="5.0" height="15.6" fill="#3A4A63"/><rect x="209.0" y="85.2" width="5.0" height="10.8" fill="#3A4A63"/><rect x="217.0" y="84.8" width="5.0" height="11.2" fill="#3A4A63"/><rect x="225.0" y="74.3" width="5.0" height="21.7" fill="#3A4A63"/><rect x="233.0" y="81.6" width="5.0" height="14.4" fill="#3A4A63"/></svg><h3><span class="l-en">Subtract</span><span class="l-tr">Ayıklama</span></h3><p><span class="l-en">The node learns what is always on, like the building's Wi-Fi, and looks only at what is new.</span><span class="l-tr">Düğüm, binanın Wi-Fi'ı gibi hep açık olanı öğrenir ve sadece yeni olana bakar.</span></p></li>
+        <li><svg viewBox="0 0 240 96" role="img" aria-label="Left: one channel full, steady. Right: energy spread over many channels, hopping" xmlns="http://www.w3.org/2000/svg"><rect x="0.0" y="77.0" width="3" height="13.9" fill="#3A4A63"/><rect x="5.0" y="75.6" width="3" height="15.5" fill="#3A4A63"/><rect x="10.0" y="76.1" width="3" height="15.4" fill="#3A4A63"/><rect x="15.0" y="81.8" width="3" height="11.7" fill="#3A4A63"/><rect x="20.0" y="74.5" width="3" height="13.2" fill="#3A4A63"/><rect x="25.0" y="74.8" width="3" height="8.9" fill="#3A4A63"/><rect x="30.0" y="78.2" width="3" height="10.0" fill="#3A4A63"/><rect x="35.0" y="77.6" width="3" height="12.6" fill="#3A4A63"/><rect x="40.0" y="81.9" width="3" height="9.7" fill="#3A4A63"/><rect x="45.0" y="79.8" width="3" height="15.3" fill="#3A4A63"/><rect x="50.0" y="75.9" width="3" height="9.3" fill="#3A4A63"/><rect x="55.0" y="75.6" width="3" height="9.1" fill="#3A4A63"/><rect x="60.0" y="77.1" width="3" height="9.0" fill="#3A4A63"/><rect x="65.0" y="82.0" width="3" height="15.0" fill="#3A4A63"/><rect x="70.0" y="80.3" width="3" height="9.7" fill="#3A4A63"/><rect x="75.0" y="74.1" width="3" height="15.0" fill="#3A4A63"/><rect x="80.0" y="79.7" width="3" height="15.7" fill="#3A4A63"/><rect x="85.0" y="77.7" width="3" height="13.4" fill="#3A4A63"/><rect x="90.0" y="80.4" width="3" height="15.5" fill="#3A4A63"/><rect x="95.0" y="76.5" width="3" height="15.7" fill="#3A4A63"/><rect x="100.0" y="74.9" width="3" height="10.4" fill="#3A4A63"/><rect x="105.0" y="79.1" width="3" height="9.3" fill="#3A4A63"/><rect x="52" y="14" width="6" height="76" fill="#6C9BD1"/><rect x="128.0" y="80.8" width="3" height="8.5" fill="#3A4A63"/><rect x="133.0" y="79.6" width="3" height="12.8" fill="#3A4A63"/><rect x="138.0" y="82.0" width="3" height="13.4" fill="#3A4A63"/><rect x="143.0" y="79.3" width="3" height="10.5" fill="#3A4A63"/><rect x="148.0" y="75.5" width="3" height="11.8" fill="#3A4A63"/><rect x="153.0" y="79.5" width="3" height="11.8" fill="#3A4A63"/><rect x="158.0" y="76.4" width="3" height="8.5" fill="#3A4A63"/><rect x="163.0" y="74.2" width="3" height="8.2" fill="#3A4A63"/><rect x="168.0" y="76.0" width="3" height="14.8" fill="#3A4A63"/><rect x="173.0" y="81.9" width="3" height="14.3" fill="#3A4A63"/><rect x="178.0" y="79.1" width="3" height="12.6" fill="#3A4A63"/><rect x="183.0" y="81.9" width="3" height="8.4" fill="#3A4A63"/><rect x="188.0" y="80.6" width="3" height="15.6" fill="#3A4A63"/><rect x="193.0" y="80.4" width="3" height="14.0" fill="#3A4A63"/><rect x="198.0" y="74.6" width="3" height="15.5" fill="#3A4A63"/><rect x="203.0" y="79.2" width="3" height="10.8" fill="#3A4A63"/><rect x="208.0" y="77.8" width="3" height="14.2" fill="#3A4A63"/><rect x="213.0" y="81.1" width="3" height="14.0" fill="#3A4A63"/><rect x="218.0" y="75.6" width="3" height="14.9" fill="#3A4A63"/><rect x="223.0" y="81.7" width="3" height="15.6" fill="#3A4A63"/><rect x="228.0" y="81.3" width="3" height="10.7" fill="#3A4A63"/><rect x="233.0" y="77.1" width="3" height="15.3" fill="#3A4A63"/><rect x="143.0" y="62" width="5" height="28" fill="#E8652B"/><rect x="148.0" y="62" width="5" height="28" fill="#E8652B"/><rect x="153.0" y="62" width="5" height="28" fill="#E8652B"/><rect x="193.0" y="62" width="5" height="28" fill="#E8652B"/><rect x="198.0" y="62" width="5" height="28" fill="#E8652B"/><rect x="203.0" y="62" width="5" height="28" fill="#E8652B"/><text x="0" y="8" fill="#4B5666" font-size="10" font-family="Space Grotesk">steady</text><text x="128" y="8" fill="#4B5666" font-size="10" font-family="Space Grotesk">hopping</text></svg><h3><span class="l-en">Classify</span><span class="l-tr">Sınıflandırma</span></h3><p><span class="l-en">A steady transmitter fills one channel. A frequency-hopping link spreads out and fills none. Drone links hop.</span><span class="l-tr">Sabit bir verici tek kanalı doldurur. Frekans atlayan bir bağlantı dağılır ve hiçbir kanalı dolduramaz. Drone bağlantıları atlar.</span></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="dark" id="results">
+    <div class="wrap">
+      <div class="row">
+        <div class="title"><h2><span class="l-en">Steady and hopping signals barely overlap</span><span class="l-tr">Sabit ve atlamalı sinyaller neredeyse hiç örtüşmüyor</span></h2></div>
+        <div class="prose"><p><span class="l-en">First bench results, 13 September 2026. Our own test transmitter switched between a steady carrier and a hopping signal, about 65 cm from the node, in one room. We analysed 136 one-second frames.</span><span class="l-tr">İlk tezgâh sonuçları, 13 Eylül 2026. Kendi test vericimiz sabit taşıyıcı ile frekans atlayan sinyal arasında geçiş yaptı; düğüme yaklaşık 65 cm uzakta, tek bir odada. 136 adet bir saniyelik çerçeveyi inceledik.</span></p></div>
+      </div>
+      <div class="figs">
+        <figure>
+          <h3><span class="l-en">Fullest channel in each frame</span><span class="l-tr">Her çerçevedeki en dolu kanal</span></h3>
+          <div class="scroll">            <svg viewBox="0 0 530 320" role="img" aria-labelledby="h-title" xmlns="http://www.w3.org/2000/svg">
+              <title id="h-title">Histogram: 71 hopping frames cluster between 10 and 30 percent; 65 steady frames cluster between 80 and 100 percent. Threshold at 32 percent.</title>
+              <path class="grid" d="M44 225.4H504M44 182.8H504M44 140.2H504M44 97.6H504M44 55H504"/>
+              <rect class="bar-hop" x="95" y="38" width="18" height="230" rx="2"/>
+              <rect class="bar-hop" x="141" y="212.6" width="18" height="55.4" rx="2"/>
+              <rect class="bar-hop" x="187" y="259.5" width="18" height="8.5" rx="2"/>
+              <rect class="bar-hop" x="279" y="259.5" width="18" height="8.5" rx="2"/>
+              <rect class="bar-sig" x="205" y="263.7" width="18" height="4.3" rx="2"/>
+              <rect class="bar-sig" x="297" y="255.2" width="18" height="12.8" rx="2"/>
+              <rect class="bar-sig" x="343" y="255.2" width="18" height="12.8" rx="2"/>
+              <rect class="bar-sig" x="389" y="259.5" width="18" height="8.5" rx="2"/>
+              <rect class="bar-sig" x="435" y="229.7" width="18" height="38.3" rx="2"/>
+              <rect class="bar-sig" x="481" y="67.8" width="18" height="200.2" rx="2"/>
+              <path class="thr" d="M191.2 24V268"/>
+              <path class="base" d="M44 268H504"/>
+              <text class="t" x="36" y="59" text-anchor="end">50</text>
+              <text class="t" x="36" y="272" text-anchor="end">0</text>
+              <text class="t l-en" x="44" y="288" text-anchor="middle">0%</text>
+              <text class="t l-en" x="274" y="288" text-anchor="middle">50%</text>
+              <text class="t l-en" x="504" y="288" text-anchor="middle">100%</text>
+              <text class="t l-tr" x="44" y="288" text-anchor="middle">%0</text>
+              <text class="t l-tr" x="274" y="288" text-anchor="middle">%50</text>
+              <text class="t l-tr" x="504" y="288" text-anchor="middle">%100</text>
+              <text class="tl l-en" x="274" y="312" text-anchor="middle">Peak channel occupancy · frames on the vertical axis</text>
+              <text class="tl l-tr" x="274" y="312" text-anchor="middle">Tepe kanal doluluğu · dikey eksende çerçeve sayısı</text>
+              <text class="lab-hop l-en" x="119" y="72">Hopping</text><text class="lab-hop l-en" x="119" y="90">71 frames</text>
+              <text class="lab-hop l-tr" x="119" y="72">Atlamalı</text><text class="lab-hop l-tr" x="119" y="90">71 çerçeve</text>
+              <text class="lab-sig l-en" x="474" y="80" text-anchor="end">Steady · 65 frames</text>
+              <text class="lab-sig l-tr" x="474" y="80" text-anchor="end">Sabit · 65 çerçeve</text>
+              <text class="t l-en" x="197" y="160">threshold 32%</text>
+              <text class="t l-tr" x="197" y="160">eşik %32</text>
+            </svg></div>
+          <figcaption><span class="l-en">56 of 65 steady frames have a channel at least 80% full. 67 of 71 hopping frames stay below 30%.</span><span class="l-tr">65 sabit çerçevenin 56'sında en az %80 dolu bir kanal var. 71 atlamalı çerçevenin 67'si %30'un altında kalıyor.</span></figcaption>
+        </figure>
+        <figure>
+          <h3><span class="l-en">ROC curve</span><span class="l-tr">ROC eğrisi</span></h3>
+          <div class="scroll">            <svg viewBox="0 0 420 420" role="img" aria-labelledby="r-title" xmlns="http://www.w3.org/2000/svg">
+              <title id="r-title">ROC curve that rises almost straight up at zero false alarms and reaches full detection at 2.8 percent false alarms. Area under the curve 0.999.</title>
+              <rect class="frame" x="56" y="20" width="340" height="340"/>
+              <path class="grid" d="M141 20V360M226 20V360M311 20V360M56 105H396M56 190H396M56 275H396"/>
+              <path class="diag" d="M56 360L396 20"/>
+              <polygon class="area" points="56,360 56,35.7 60.8,35.7 60.8,25.2 65.6,25.2 65.6,20 396,20 396,360"/>
+              <polyline class="curve" points="56,360 56,35.7 60.8,35.7 60.8,25.2 65.6,25.2 65.6,20 396,20"/>
+              <circle class="dot" cx="65.6" cy="20" r="7"/>
+              <text class="t" x="48" y="24" text-anchor="end">1.0</text>
+              <text class="t" x="48" y="194" text-anchor="end">0.5</text>
+              <text class="t" x="48" y="364" text-anchor="end">0</text>
+              <text class="t" x="56" y="380" text-anchor="middle">0</text>
+              <text class="t" x="226" y="380" text-anchor="middle">0.5</text>
+              <text class="t" x="396" y="380" text-anchor="middle">1.0</text>
+              <text class="tl l-en" x="226" y="410" text-anchor="middle">False alarm rate</text>
+              <text class="tl l-tr" x="226" y="410" text-anchor="middle">Yanlış alarm oranı</text>
+              <text class="tl l-en" x="16" y="190" text-anchor="middle" transform="rotate(-90 16 190)">Detection rate</text>
+              <text class="tl l-tr" x="16" y="190" text-anchor="middle" transform="rotate(-90 16 190)">Tespit oranı</text>
+              <text class="lab-ink l-en" x="80" y="56">threshold 32%</text>
+              <text class="lab-ink l-tr" x="80" y="56">eşik %32</text>
+              <text class="t l-en" x="250" y="236">random guess</text>
+              <text class="t l-tr" x="250" y="236">rastgele tahmin</text>
+            </svg></div>
+          <figcaption><span class="l-en">The closer the curve hugs the top-left corner, the better the separation.</span><span class="l-tr">Eğri sol üst köşeye ne kadar yapışıksa ayrım o kadar iyidir.</span></figcaption>
+        </figure>
+      </div>
+      <div class="numbers">
+        <div class="auc"><span class="big"><span class="l-en">0.999</span><span class="l-tr">0,999</span></span><span class="s"><span class="l-en">area under the ROC curve (1.0 is perfect)</span><span class="l-tr">ROC eğrisinin altındaki alan (1,0 kusursuz)</span></span></div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th><span class="l-en">Threshold</span><span class="l-tr">Eşik</span></th><th><span class="l-en">Detected</span><span class="l-tr">Tespit</span></th><th><span class="l-en">False alarms</span><span class="l-tr">Yanlış alarm</span></th></tr></thead>
+            <tbody>
+              <tr><td><span class="l-en">32%</span><span class="l-tr">%32</span></td><td><span class="l-en">100%</span><span class="l-tr">%100</span></td><td><span class="l-en">2.8%</span><span class="l-tr">%2,8</span></td></tr>
+              <tr><td><span class="l-en">60%</span><span class="l-tr">%60</span></td><td><span class="l-en">93.8%</span><span class="l-tr">%93,8</span></td><td><span class="l-en">0%</span><span class="l-tr">%0</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="limits">
+        <h3><span class="l-en">What these results do not show yet</span><span class="l-tr">Bu sonuçların henüz göstermedikleri</span></h3>
+        <dl>
+          <div><dt><span class="l-en">No real drone yet</span><span class="l-tr">Henüz gerçek drone yok</span></dt><dd><span class="l-en">Only our own test transmitter. Real 10–20 MHz video links are next.</span><span class="l-tr">Sadece kendi test vericimiz. Sırada gerçek 10–20 MHz video bağlantıları var.</span></dd></div>
+          <div><dt><span class="l-en">One room, one distance</span><span class="l-tr">Tek oda, tek mesafe</span></dt><dd><span class="l-en">About 65 cm, one session. Range has not been measured.</span><span class="l-tr">Yaklaşık 65 cm, tek oturum. Menzil henüz ölçülmedi.</span></dd></div>
+          <div><dt><span class="l-en">Labels from timing</span><span class="l-tr">Zamana dayalı etiketleme</span></dt><dd><span class="l-en">Frames were labelled from the transmitter's known cycle, not an independent log.</span><span class="l-tr">Çerçeveler bağımsız bir kayıttan değil, vericinin bilinen döngüsünden etiketlendi.</span></dd></div>
+          <div><dt><span class="l-en">Radio-silent drones</span><span class="l-tr">Telsizi kapalı dronelar</span></dt><dd><span class="l-en">A drone flying a pre-set route with its radios off is invisible to RF sensing.</span><span class="l-tr">Telsizi kapalı, önceden programlı rotada uçan bir drone RF ile görülemez.</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="for">
+    <div class="wrap row">
+      <div class="title"><h2><span class="l-en">Sites that will never buy military systems</span><span class="l-tr">Askeri sistem almayacak tesisler</span></h2></div>
+      <div>
+        <div class="prose"><p><span class="l-en">Counter-drone systems are built for bases and airports. We are designing for everyone below that line: local support, data that stays on the premises, and alerts that can point the cameras a site already owns.</span><span class="l-tr">Anti-drone sistemleri üsler ve havalimanları için tasarlanıyor. Biz o çizginin altındaki herkes için tasarlıyoruz: yerel destek, tesiste kalan veri ve tesisin zaten sahip olduğu kameraları yönlendirebilen uyarılar.</span></p></div>
+        <p class="sites"><span class="l-en">Prisons, data centers, ports, industrial zones, energy sites, stadiums and events, logistics hubs.</span><span class="l-tr">Cezaevleri, veri merkezleri, limanlar, organize sanayi bölgeleri, enerji tesisleri, stadyum ve etkinlikler, lojistik merkezleri.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="next">
+    <div class="wrap row">
+      <div class="title"><h2><span class="l-en">What we are doing in the next 90 days</span><span class="l-tr">Önümüzdeki 90 günde ne yapıyoruz</span></h2></div>
+      <ol class="plan">
+        <li><span class="n">1</span><span><span class="l-en">Test against real drones: a DJI-class video link and an FPV link, with the same protocol.</span><span class="l-tr">Gerçek dronelarla test: DJI sınıfı bir video bağlantısı ve bir FPV bağlantısı, aynı protokolle.</span></span></li>
+        <li><span class="n">2</span><span><span class="l-en">Measure range with a battery-powered transmitter, outdoors.</span><span class="l-tr">Pille çalışan bir vericiyle açık alanda menzil ölçümü.</span></span></li>
+        <li><span class="n">3</span><span><span class="l-en">Talk to the people who run security at prisons, data centers, ports and industrial zones.</span><span class="l-tr">Cezaevi, veri merkezi, liman ve sanayi bölgelerinde güvenliği yöneten kişilerle görüşmek.</span></span></li>
+        <li><span class="n">4</span><span><span class="l-en">Move to a receiver that reads real signal strength, then measure again.</span><span class="l-tr">Gerçek sinyal gücü okuyabilen bir alıcıya geçmek ve ölçümleri tekrarlamak.</span></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="dark contact" id="contact">
+    <div class="wrap row">
+      <div class="title">
+        <h2><span class="l-en">Run security at a site in Türkiye?</span><span class="l-tr">Türkiye'de bir tesisin güvenliğinden mi sorumlusunuz?</span></h2>
+        <p class="prose"><span class="l-en">We want to learn how you handle the airspace above your site today. Fifteen minutes is enough.</span><span class="l-tr">Tesisinizin üzerindeki hava sahasını bugün nasıl yönettiğinizi öğrenmek istiyoruz. On beş dakika yeterli.</span></p>
+      </div>
+      <div class="reach">
+        <a class="mail" id="email" href="mailto:keremgumush@gmail.com">keremgumush@gmail.com</a>
+        <div class="row2">
+          <button class="copy" id="copy" type="button"><span class="l-en" id="copy-en">Copy address</span><span class="l-tr" id="copy-tr">Adresi kopyala</span></button>
+          <a class="in" href="https://www.linkedin.com/in/koksal-kerem-gumus" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="founder"><span class="l-en">Köksal Kerem Gümüş, founder. Electrical and Electronics Engineering, Yeditepe University, Istanbul.</span><span class="l-tr">Köksal Kerem Gümüş, kurucu. Elektrik-Elektronik Mühendisliği, Yeditepe Üniversitesi, İstanbul.</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Sezgi"><svg viewBox="0 0 306 190" aria-hidden="true"><use href="#mark" width="306" height="190"/></svg>SEZGİ</a>
+    <span><span class="l-en">Prototype stage. Figures on this page come from one bench session. © 2026 Sezgi, Istanbul.</span><span class="l-tr">Prototip aşaması. Bu sayfadaki rakamlar tek bir tezgâh oturumundan. © 2026 Sezgi, İstanbul.</span></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var T={quiet:['Quiet','Sakin'],steady:['Steady carrier, ignored','Sabit taşıyıcı, yok sayıldı'],hop:['Hopping link detected','Atlamalı bağlantı algılandı']};
+  var cur='quiet';
+  function lang(){return root.getAttribute('data-lang')==='tr'?1:0}
+  var st=document.getElementById('status'), stt=document.getElementById('status-t'), pk=document.getElementById('peak');
+  function setStatus(s){cur=s; st.setAttribute('data-s',s); stt.textContent=T[s][lang()]}
+  document.getElementById('lang').addEventListener('click',function(){
+    var next=lang()?'en':'tr';
+    root.setAttribute('data-lang',next); root.lang=next;
+    try{localStorage.setItem('sezgi-lang',next)}catch(e){}
+    stt.textContent=T[cur][lang()];
+  });
+
+  var copy=document.getElementById('copy'), en=document.getElementById('copy-en'), tr=document.getElementById('copy-tr');
+  function label(a,b){en.textContent=a;tr.textContent=b;setTimeout(function(){en.textContent='Copy address';tr.textContent='Adresi kopyala'},2200)}
+  function selectEmail(){var el=document.getElementById('email');var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);label('Selected, press Ctrl+C','Seçildi, Ctrl+C')}
+  copy.addEventListener('click',function(){
+    var text=document.getElementById('email').textContent.trim();
+    try{navigator.clipboard.writeText(text).then(function(){label('Copied','Kopyalandı')},selectEmail)}catch(e){selectEmail()}
+  });
+
+  /* Simulated sensor view. Types: 0 noise, 1 wifi (subtracted), 2 steady carrier, 3 hopping burst. */
+  var cv=document.getElementById('wf'); if(!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d'), N=84, RH=5, R=60, rows=[], WIN=40;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var phases=[['quiet',4000],['steady',5000],['quiet',3000],['hop',6500]], pi=0, pt=0, phase='quiet';
+  function row(ph){
+    var v=new Float32Array(N), t=new Uint8Array(N), i;
+    for(i=0;i<N;i++) v[i]=Math.random()*0.1;
+    if(Math.random()<0.7){var a=0.5+Math.random()*0.4; for(i=2;i<=22;i++){v[i]=a*(0.72+0.28*Math.random()); t[i]=1;}}
+    if(ph==='steady'){for(i=55;i<=57;i++){v[i]=0.85+Math.random()*0.15; t[i]=2;}}
+    if(ph==='hop'){var c=30+Math.floor(Math.random()*48); for(i=c-4;i<=c+4;i++){if(i>=0&&i<N){v[i]=0.8+Math.random()*0.2; t[i]=3;}}}
+    return {v:v,t:t};
+  }
+  function peak(){
+    var best=0,cnt=new Array(N).fill(0),n=Math.min(rows.length,WIN),y,x;
+    for(y=0;y<n;y++){var r=rows[y]; for(x=0;x<N;x++){ if(r.t[x]>=2&&r.v[x]>=0.5) cnt[x]++; }}
+    for(x=0;x<N;x++) if(cnt[x]>best) best=cnt[x];
+    return n?Math.round(best/n*100):0;
+  }
+  function classify(p){
+    var hop=0,n=Math.min(rows.length,WIN),y,x;
+    for(y=0;y<n;y++){var r=rows[y],h=0; for(x=0;x<N;x++) if(r.t[x]===3) h=1; hop+=h;}
+    if(p>=32) return 'steady';
+    if(n&&hop/n>0.4) return 'hop';
+    return 'quiet';
+  }
+  function draw(){
+    var w=cv.clientWidth,h=cv.clientHeight; if(!w||!h) return;
+    var cw=w/N; ctx.fillStyle='#0B1524'; ctx.fillRect(0,0,w,h);
+    var rn=Math.ceil(h/RH);
+    for(var y=0;y<rn&&y<rows.length;y++){
+      var r=rows[y], fade=1-(y/rn)*0.55;
+      for(var x=0;x<N;x++){
+        var v=r.v[x]; if(v<0.06) continue;
+        var col, a=(Math.pow(v,1.5)*fade).toFixed(3);
+        if(r.t[x]===1) col='rgba(143,161,182,'+(a*0.55).toFixed(3)+')';
+        else if(r.t[x]===2) col='rgba(108,155,209,'+a+')';
+        else if(r.t[x]===3) col='rgba(232,101,43,'+a+')';
+        else col='rgba(143,161,182,'+(a*0.5).toFixed(3)+')';
+        ctx.fillStyle=col; ctx.fillRect(x*cw,y*RH,Math.max(cw-0.8,0.5),RH-1);
+      }
+    }
+  }
+  function size(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(cv.clientWidth*dpr); cv.height=Math.round(cv.clientHeight*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0); draw();
+  }
+  function tick(){
+    pt+=100; if(pt>=phases[pi][1]){pt=0; pi=(pi+1)%phases.length; phase=phases[pi][0];}
+    rows.unshift(row(phase)); if(rows.length>R*2) rows.length=R*2;
+    var p=classify(peak()); var pc=peak();
+    pk.textContent=pc+'%'; if(p!==cur) setStatus(p);
+    draw();
+  }
+  var timer=null;
+  function start(){ if(reduce||timer) return; timer=setInterval(tick,100); }
+  function stop(){ clearInterval(timer); timer=null; }
+  document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
+  for(var q=0;q<R;q++) rows.unshift(row('quiet'));
+  if(reduce){ for(q=0;q<45;q++) rows.unshift(row('hop')); phase='hop'; var pc0=peak(); pk.textContent=pc0+'%'; setStatus(classify(pc0)); }
+  if(window.ResizeObserver){ new ResizeObserver(size).observe(cv); } else { window.addEventListener('resize',size); }
+  size(); start();
+})();
+</script>
+</body>
+</html>
